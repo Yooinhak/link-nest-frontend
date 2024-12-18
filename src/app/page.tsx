@@ -1,3 +1,9 @@
+import Select from '@components/Select';
+
 export default function Home() {
-  return <div></div>;
+  return (
+    <div>
+      <Select />
+    </div>
+  );
 }
