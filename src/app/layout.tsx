@@ -15,7 +15,7 @@ export const viewport: Viewport = {
   themeColor: '#222',
 };
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Link Nest',
   description: '즐겨찾는 공유 링크를 모두 모아둘 수 있는 아늑한 장소입니다.',
   openGraph: {
