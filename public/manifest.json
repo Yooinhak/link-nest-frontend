@@ -1,0 +1,17 @@
+{
+    "name": "Link Nest",
+    "short_name": "LinkNest",
+    "description": "Manage and share your favorite links easily.",
+    "icons": [
+      {
+        "src": "/icons/ln_icon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#317EFB",
+    "display": "standalone"
+  }
+  
