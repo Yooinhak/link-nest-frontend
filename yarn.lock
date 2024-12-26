@@ -1511,6 +1511,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/eslint-plugin-next@npm:^15.1.2":
+  version: 15.1.2
+  resolution: "@next/eslint-plugin-next@npm:15.1.2"
+  dependencies:
+    fast-glob: "npm:3.3.1"
+  checksum: 10c0/9caf0763247cba8925d89596b7fdb21ec5d3cd0f5251e1e3f70c19815c7439cf358c694e59f0eedf08520c3a75c063395288af92661c75781bd7441de1063dc2
+  languageName: node
+  linkType: hard
+
 "@next/swc-darwin-arm64@npm:13.5.8":
   version: 13.5.8
   resolution: "@next/swc-darwin-arm64@npm:13.5.8"
@@ -3305,7 +3314,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:^5.0.0":
+"eslint-plugin-react-hooks@npm:^5.0.0, eslint-plugin-react-hooks@npm:^5.1.0":
   version: 5.1.0
   resolution: "eslint-plugin-react-hooks@npm:5.1.0"
   peerDependencies:
@@ -4656,6 +4665,7 @@ __metadata:
   resolution: "link-nest-frontend@workspace:."
   dependencies:
     "@eslint/eslintrc": "npm:^3"
+    "@next/eslint-plugin-next": "npm:^15.1.2"
     "@trivago/prettier-plugin-sort-imports": "npm:^5.2.0"
     "@types/next-pwa": "npm:^5"
     "@types/node": "npm:^20"
@@ -4663,6 +4673,7 @@ __metadata:
     "@types/react-dom": "npm:^19"
     eslint: "npm:^9"
     eslint-config-next: "npm:15.1.0"
+    eslint-plugin-react-hooks: "npm:^5.1.0"
     next: "npm:15.1.0"
     next-pwa: "npm:^5.6.0"
     prettier: "npm:^3.4.2"

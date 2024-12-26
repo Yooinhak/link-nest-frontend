@@ -32,6 +32,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
@@ -42,9 +43,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#222" />
-        <meta name="description" content="즐겨찾는 공유 링크를 모두 모아둘 수 있는 아늑한 장소입니다." />
         <link rel="icon" href="/icons/ln_icon.png" sizes="192x192" />
         <link rel="icon" href="/icons/ln_icon.png" sizes="512x512" />
       </head>
