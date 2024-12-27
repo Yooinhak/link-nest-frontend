@@ -1,5 +1,5 @@
 const Select = () => {
-  return <div>Select Component</div>;
+  return <div className="w-full bg-red-500">Select Component</div>;
 };
 
 export default Select;
