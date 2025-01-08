@@ -1,9 +1,12 @@
-const withPWA = require('next-pwa')({
-  dest: 'public', // Service Worker 및 기타 PWA 파일이 생성될 위치
-  register: true, // Service Worker 등록
-  skipWaiting: true, // 업데이트 시 대기하지 않고 즉시 활성화
+/** @type {import('next').NextConfig} */
+import withPWA from 'next-pwa';
+
+const nextPWA = withPWA({
+  dest: 'public',
+  register: true, // Service Worker 자동 등록
+  skipWaiting: true, // 업데이트가 감지되면 대기하지 않고 새 SW 적용
 });
 
-module.exports = withPWA({
-  // 다른 Next.js 설정
-});
+const nextConfig = {};
+
+export default nextPWA(nextConfig);
