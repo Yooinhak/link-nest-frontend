@@ -20,21 +20,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Link Nest',
   description: '즐겨찾는 공유 링크를 모두 모아둘 수 있는 아늑한 장소입니다.',
-  openGraph: {
-    title: 'Link Nest',
-    description: '즐겨찾는 공유 링크를 모두 모아둘 수 있는 아늑한 장소입니다.',
-    url: '/',
-    siteName: 'Link Nest',
-    images: [
-      {
-        url: '/icons/ln_icon.png',
-        width: 192,
-        height: 192,
-        alt: 'Link Nest Icon',
-      },
-    ],
-  },
   manifest: '/manifest.json',
+  viewport: 'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',
+  icons: [
+    { rel: 'icon', url: '/icons/ln_icon.png', sizes: '192x192' },
+    { rel: 'icon', url: '/icons/ln_icon.png', sizes: '512x512' },
+  ],
 };
 
 export default function RootLayout({
@@ -44,10 +35,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/icons/ln_icon.png" sizes="192x192" />
-        <link rel="icon" href="/icons/ln_icon.png" sizes="512x512" />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
     </html>
   );
