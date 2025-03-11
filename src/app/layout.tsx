@@ -21,7 +21,6 @@ export const metadata: Metadata = {
   title: 'Link Nest',
   description: '즐겨찾는 공유 링크를 모두 모아둘 수 있는 아늑한 장소입니다.',
   manifest: '/manifest.json',
-  viewport: 'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',
   icons: [
     { rel: 'icon', url: '/icons/ln_icon.png', sizes: '192x192' },
     { rel: 'icon', url: '/icons/ln_icon.png', sizes: '512x512' },

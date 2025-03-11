@@ -1,10 +1,15 @@
-// import LinkPreviewer from '@components/LinkPreviewer';
+import { supabase } from 'server/supabase';
 
-export default function Home() {
+import LinkPreviewer from '@components/LinkPreviewer';
+
+export default async function Home() {
+  const postList = await supabase.from('posts').select();
+
   return (
     <div className="w-full h-screen p-12 bg-slate-400 flex justify-center items-center">
-      test123
-      {/* <LinkPreviewer searchParams={{ url: 'https://shopping.naver.com/festa/onsale/6764c9f891c081207f66357c?' }} /> */}
+      {(postList.data ?? []).map((post) => (
+        <LinkPreviewer key={`post_${post.id}`} url={post.url} />
+      ))}
     </div>
   );
 }
