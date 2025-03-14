@@ -1,8 +1,9 @@
-import { supabase } from 'server/supabase';
 
 import LinkPreviewer from '@components/LinkPreviewer';
+import { createClient } from 'utils/supabase/static-props';
 
 export default async function Home() {
+  const supabase = createClient();
   const postList = await supabase.from('posts').select();
 
   return (
