@@ -1,6 +1,6 @@
+import { createClient } from 'utils/supabase/static-props';
 
 import LinkPreviewer from '@components/LinkPreviewer';
-import { createClient } from 'utils/supabase/static-props';
 
 export default async function Home() {
   const supabase = createClient();

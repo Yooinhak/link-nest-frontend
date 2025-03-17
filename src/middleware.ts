@@ -4,8 +4,12 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const token = req.cookies.get(`${process.env.NEXT_PUBLIC_SUPABASE_TOKEN}`);
 
-  if (!url.pathname.startsWith('/login') && !url.pathname.startsWith('/api') && !token) {
-    return NextResponse.redirect(new URL('login', req.url));
+  if (!url.pathname.startsWith('/auth') && !token) {
+    return NextResponse.redirect(new URL('/auth/login', req.url));
+  }
+
+  if (url.pathname.startsWith('/auth') && token) {
+    return NextResponse.redirect(new URL('/', req.url));
   }
 
   return NextResponse.next();
