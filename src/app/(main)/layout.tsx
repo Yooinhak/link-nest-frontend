@@ -13,7 +13,7 @@ export default function MainLayout({
 
   const signOut = async () => {
     await supabase.auth.signOut();
-    router.push('/auth/login');
+    router.refresh();
   };
 
   return (
