@@ -1,7 +1,8 @@
 'use client';
 
+import { createClient } from '@utils/supabase/component';
+
 import Image from 'next/image';
-import { createClient } from 'utils/supabase/component';
 
 const KakaoLoginButton = () => {
   const supabase = createClient();
