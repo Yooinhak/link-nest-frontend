@@ -1,7 +1,7 @@
 interface Metadata {
   title: string | null;
   description: string | null;
-  image: string | null;
+  image: string | null; // This will now hold either og:image or twitter:image
 }
 
 interface LinkPreviewerProps {
@@ -34,7 +34,7 @@ export default async function LinkPreviewer({ url = '' }: LinkPreviewerProps) {
         <div className="mt-4">
           <h1 className="font-bold text-xl">{metadata.title}</h1>
           <p>{metadata.description}</p>
-          {metadata.image && <img src={metadata.image} alt="Preview" className="mt-2 w-full" />}
+          {metadata.image && <img src={metadata.image} alt="Preview" className="mt-2 w-full max-w-64" />}
         </div>
       ) : (
         url && <p className="text-red-500 mt-2">No metadata found or invalid URL.</p>
