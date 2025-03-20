@@ -17,9 +17,12 @@ export default function MainLayout({
   };
 
   return (
-    <div>
-      <button onClick={signOut}>로그아웃</button>
-      {children}
-    </div>
+    <>
+      <nav>
+        <button onClick={signOut}>로그아웃</button>
+      </nav>
+      <main className="w-full max-w-[500px] mx-auto">{children}</main>
+      <footer>footer</footer>
+    </>
   );
 }

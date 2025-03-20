@@ -2,13 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;
-  const token = req.cookies.get(`${process.env.NEXT_PUBLIC_SUPABASE_TOKEN}`);
 
-  if (!url.pathname.startsWith('/auth') && !token) {
+  // Supabase 인증 토큰 찾기 (code-verifier 제외)
+  const supabaseToken = req.cookies
+    .getAll()
+    .find(
+      ({ name }) => name.startsWith(`${process.env.NEXT_PUBLIC_SUPABASE_TOKEN}`) && !name.includes('-code-verifier'),
+    );
+
+  const hasToken = supabaseToken !== undefined;
+
+  if (!url.pathname.startsWith('/auth') && !hasToken) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
   }
 
-  if (url.pathname.startsWith('/auth') && token) {
+  if (url.pathname.startsWith('/auth') && hasToken) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
