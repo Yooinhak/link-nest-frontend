@@ -1,8 +1,8 @@
 'use client';
 
-import { createClient } from '@utils/supabase/component';
-
 import Image from 'next/image';
+
+import { createClient } from '@utils/supabase/component';
 
 type Props = {
   type: 'kakao' | 'google';
@@ -33,7 +33,7 @@ const SocialLoginButton = ({ type }: Props) => {
       className={`w-[300px] h-[45px] flex items-center justify-center gap-2 rounded-md ${BUTTON_STYLE[type]}`}
     >
       <Image src={`/icons/${type}_logo.svg`} width={18} height={18} alt={`${type} login`} />
-      <span>{`${type}로 시작하기`}</span>
+      <span>{`${type.charAt(0).toUpperCase() + type.slice(1)}로 시작하기`}</span>
     </button>
   );
 };
