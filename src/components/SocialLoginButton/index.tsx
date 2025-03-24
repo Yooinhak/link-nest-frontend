@@ -19,7 +19,7 @@ const SocialLoginButton = ({ type }: Props) => {
   const handleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: type,
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      options: { redirectTo: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/callback` },
     });
 
     if (error) {
