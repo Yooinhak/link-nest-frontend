@@ -5,7 +5,7 @@ module.exports = {
   useTabs: false,
   tabWidth: 2,
   printWidth: 120,
-  arrowParens: 'always',
+  arrowParens: 'avoid',
 
   plugins: [require.resolve('@trivago/prettier-plugin-sort-imports')],
   importOrder: ['^(react|next)', '<THIRD_PARTY_MODULES>', '^(components|utils)(.*)$', '^[./]'],
