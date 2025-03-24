@@ -16,8 +16,8 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
   }
 
-  if (url.pathname.startsWith('/auth') && hasToken) {
-    return NextResponse.redirect(new URL('/', req.url));
+  if ((url.pathname.startsWith('/auth') || url.pathname === '/') && hasToken) {
+    return NextResponse.redirect(new URL('/home', req.url));
   }
 
   return NextResponse.next();
