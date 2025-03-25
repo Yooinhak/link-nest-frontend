@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   description: '즐겨찾는 공유 링크를 모두 모아둘 수 있는 아늑한 장소입니다.',
   manifest: '/manifest.json',
   icons: [
-    { rel: 'icon', url: '/icons/ln_icon.png', sizes: '192x192' },
-    { rel: 'icon', url: '/icons/ln_icon.png', sizes: '512x512' },
+    { rel: 'icon', url: '/logo/192.png', sizes: '192x192' },
+    { rel: 'icon', url: '/logo/512.png', sizes: '512x512' },
   ],
 };
 
