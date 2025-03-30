@@ -13,7 +13,7 @@ const BUTTON_STYLE = {
   google: 'bg-[#fff] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.25)] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.08)]',
 };
 
-const SocialLoginButton = ({ type }: Props) => {
+const Component = ({ type }: Props) => {
   const supabase = createClient();
 
   const handleSignIn = async () => {
@@ -38,4 +38,4 @@ const SocialLoginButton = ({ type }: Props) => {
   );
 };
 
-export default SocialLoginButton;
+export default Component;

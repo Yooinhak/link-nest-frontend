@@ -7,6 +7,8 @@ import { Skeleton } from '@components/Skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@utils/supabase/component';
 
+import packageJson from '../../../../package.json';
+
 export default function ProfilePage() {
   const supabase = createClient();
   const { data: user, isLoading } = useQuery({
@@ -32,6 +34,8 @@ export default function ProfilePage() {
       <div>{user?.email}</div>
 
       <SignOutButton />
+
+      <span>{`version : ${packageJson.version}`}</span>
     </div>
   );
 }
