@@ -1,3 +1,4 @@
+import { Button } from '@components/Button';
 import {
   Drawer,
   DrawerClose,
@@ -12,8 +13,18 @@ import { OriginInput } from '@components/Input';
 
 export default function HomePage() {
   return (
+    <div className="p-4">
+      <CreateFolderButton />
+    </div>
+  );
+}
+
+const CreateFolderButton = () => {
+  return (
     <Drawer>
-      <DrawerTrigger>Open</DrawerTrigger>
+      <DrawerTrigger>
+        <Button variant="outline">Open Drawer</Button>
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>폴더 생성</DrawerTitle>
@@ -26,12 +37,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        <DrawerClose>
-          <div>닫기</div>
-        </DrawerClose>
-
-        <DrawerFooter></DrawerFooter>
+        <div className="flex justify-center">
+          <DrawerFooter className="w-full max-w-[500px]">
+            <DrawerClose asChild>
+              <Button variant="outline">닫기</Button>
+            </DrawerClose>
+            <Button>저장</Button>
+          </DrawerFooter>
+        </div>
       </DrawerContent>
     </Drawer>
   );
-}
+};
