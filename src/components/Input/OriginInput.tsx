@@ -17,5 +17,6 @@ const Component = React.forwardRef<HTMLInputElement, React.ComponentProps<'input
     );
   },
 );
+Component.displayName = 'OriginInput';
 
 export default Component;
