@@ -13,6 +13,8 @@ import {
   DrawerTrigger,
 } from '@components/Drawer';
 import { OriginInput } from '@components/Input';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@utils/react-query/queryKeys';
 import { createClient } from '@utils/supabase/component';
 
 import { Button } from '.';
@@ -20,18 +22,22 @@ import { Button } from '.';
 const Component = () => {
   const form = useForm();
   const supabase = createClient();
+  const queryClient = useQueryClient();
 
   const handleCreate = async () => {
     const data = form.getValues();
 
-    const res = await supabase.from('folders').insert({ name: data.name });
-    console.log(res);
+    const { error } = await supabase.from('folders').insert({ name: data.name });
+
+    if (!error) {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.FOLDER_LIST] });
+    }
   };
 
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">Open Drawer</Button>
+        <Button variant="outline">폴더 생성</Button>
       </DrawerTrigger>
       <FormProvider {...form}>
         <DrawerContent>
