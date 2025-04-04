@@ -16,10 +16,13 @@ const FolderList = () => {
   if (!Array.isArray(folderList) || !folderList?.length) return <></>;
 
   return (
-    <ul>
+    <ul className="space-y-2">
       {folderList.map(folder => (
-        <li key={folder.id}>
-          <span>{folder.name}</span>
+        <li
+          key={folder.id}
+          className="flex w-full flex-col items-start justify-between rounded-md border px-4 py-2 sm:flex-row sm:items-center cursor-pointer bg-white"
+        >
+          <span className="text-muted-foreground">{folder.name}</span>
         </li>
       ))}
     </ul>
