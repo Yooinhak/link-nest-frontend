@@ -36,8 +36,8 @@ const Component = () => {
 
   return (
     <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="outline">폴더 생성</Button>
+      <DrawerTrigger asChild className="mb-4">
+        <Button>폴더 생성</Button>
       </DrawerTrigger>
       <FormProvider {...form}>
         <DrawerContent>
