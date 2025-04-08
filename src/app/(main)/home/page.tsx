@@ -1,5 +1,5 @@
 import { CreateFolderButton } from '@components/Button';
-import FolderList from '@components/FolderList/imdex';
+import FolderList from '@components/FolderList';
 
 export default async function HomePage() {
   return (
