@@ -1,8 +1,19 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@components/AlertDialog';
 import { Button } from '@components/Button';
 import {
   Drawer,
@@ -23,8 +34,11 @@ import { MoreHorizontal, Pen, Trash2 } from 'lucide-react';
 const FolderList = () => {
   const supabase = createClient();
   const ref = useRef<HTMLButtonElement | null>(null);
+  const deleteRef = useRef<HTMLButtonElement | null>(null);
   const form = useForm();
   const queryClient = useQueryClient();
+
+  const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
 
   const { data: folderList } = useQuery({
     queryKey: [queryKeys.FOLDER_LIST],
@@ -35,6 +49,14 @@ const FolderList = () => {
   const handleUpdate = async () => {
     const { id, name } = form.getValues();
     const { error } = await supabase.from('folders').update({ name }).eq('id', id);
+    if (!error) {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.FOLDER_LIST] });
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!deleteTargetId) return;
+    const { error } = await supabase.from('folders').delete().eq('id', deleteTargetId);
     if (!error) {
       queryClient.invalidateQueries({ queryKey: [queryKeys.FOLDER_LIST] });
     }
@@ -66,7 +88,12 @@ const FolderList = () => {
                 <Pen />
                 <span>수정</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  setDeleteTargetId(folder.id);
+                  deleteRef.current?.click();
+                }}
+              >
                 <Trash2 />
                 <span>삭제</span>
               </DropdownMenuItem>
@@ -102,6 +129,20 @@ const FolderList = () => {
           </DrawerContent>
         </FormProvider>
       </Drawer>
+
+      <AlertDialog>
+        <AlertDialogTrigger ref={deleteRef} />
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>폴더 삭제</AlertDialogTitle>
+            <AlertDialogDescription>폴더를 정말로 삭제하시겠습니까?</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>취소</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>삭제</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </ul>
   );
 };

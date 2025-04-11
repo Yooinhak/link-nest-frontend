@@ -2,16 +2,7 @@
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@components/Drawer';
+import { useDrawer } from '@components/Drawer';
 import { OriginInput } from '@components/Input';
 import { useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@utils/react-query/queryKeys';
@@ -24,6 +15,8 @@ const Component = () => {
   const supabase = createClient();
   const queryClient = useQueryClient();
 
+  const { openDrawer, closeDrawer, Drawer } = useDrawer();
+
   const handleCreate = async () => {
     const data = form.getValues();
 
@@ -31,40 +24,32 @@ const Component = () => {
 
     if (!error) {
       queryClient.invalidateQueries({ queryKey: [queryKeys.FOLDER_LIST] });
+      closeDrawer();
+    } else {
+      console.error(error);
     }
   };
 
   return (
-    <Drawer>
-      <DrawerTrigger asChild className="mb-4">
-        <Button>폴더 생성</Button>
-      </DrawerTrigger>
-      <FormProvider {...form}>
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>폴더 생성</DrawerTitle>
-            <DrawerDescription>nest-link를 한곳에 모아서 볼 수 있어요!</DrawerDescription>
-          </DrawerHeader>
-
+    <>
+      <Button onClick={openDrawer}>폴더 생성</Button>
+      <Drawer
+        title="폴더 생성"
+        description="nest-link를 한곳에 모아서 볼 수 있어요!"
+        buttons={[
+          { label: '닫기', onClick: closeDrawer, variant: 'outline' },
+          { label: '저장', onClick: handleCreate },
+        ]}
+      >
+        <FormProvider {...form}>
           <div className="flex justify-center">
             <div className="w-full max-w-[500px] p-4">
               <OriginInput className="" {...form.register('name', { required: true })} />
             </div>
           </div>
-
-          <div className="flex justify-center">
-            <DrawerFooter className="w-full max-w-[500px]">
-              <DrawerClose asChild>
-                <Button variant="outline">닫기</Button>
-              </DrawerClose>
-              <DrawerClose asChild>
-                <Button onClick={handleCreate}>저장</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </div>
-        </DrawerContent>
-      </FormProvider>
-    </Drawer>
+        </FormProvider>
+      </Drawer>
+    </>
   );
 };
 

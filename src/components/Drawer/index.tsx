@@ -2,7 +2,10 @@
 
 import * as React from 'react';
 
+import { Button } from '@components/Button';
+import { buttonVariants } from '@components/Button/Basic';
 import { cn } from '@utils/shadcn';
+import { type VariantProps } from 'class-variance-authority';
 import { Drawer as DrawerPrimitive } from 'vaul';
 
 const Drawer = ({ shouldScaleBackground = true, ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
@@ -78,6 +81,67 @@ const DrawerDescription = React.forwardRef<
   />
 ));
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
+
+type Button = {
+  label: string;
+  variant?: VariantProps<typeof buttonVariants>['variant'];
+  onClick: () => void;
+};
+
+type Props = {
+  title: string;
+  description?: string;
+  buttons?: Button[];
+  children: React.ReactNode;
+};
+
+export const useDrawer = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
+
+  const Component = ({ title, description, buttons, children }: Props) => {
+    return (
+      <Drawer open={open}>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>{title}</DrawerTitle>
+            {description && <DrawerDescription>{description}</DrawerDescription>}
+          </DrawerHeader>
+          {children}
+
+          <div className="flex justify-center">
+            <DrawerFooter className="w-full max-w-[500px]">
+              {Array.isArray(buttons) ? (
+                buttons.map((button, buttonIndex) => (
+                  <Button
+                    key={`${button.label}_${buttonIndex}`}
+                    variant={button.variant ?? 'default'}
+                    onClick={button.onClick}
+                  >
+                    {button.label}
+                  </Button>
+                ))
+              ) : (
+                <DrawerClose asChild>
+                  <Button variant={'outline'}>닫기</Button>
+                </DrawerClose>
+              )}
+            </DrawerFooter>
+          </div>
+        </DrawerContent>
+      </Drawer>
+    );
+  };
+
+  return {
+    isOpen: open,
+    openDrawer,
+    closeDrawer,
+    Drawer: Component,
+  };
+};
 
 export {
   Drawer,
