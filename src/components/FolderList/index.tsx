@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -67,38 +68,40 @@ const FolderList = () => {
   return (
     <ul className="space-y-2">
       {folderList.map(folder => (
-        <li
-          key={folder.id}
-          className="flex items-center justify-between rounded-md border px-4 py-2 cursor-pointer bg-white"
-        >
-          <span className="text-muted-foreground">{folder.name}</span>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="px-2">
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent side="left" align="start">
-              <DropdownMenuItem
-                onClick={() => {
-                  form.reset({ id: folder.id, name: folder.name });
-                  ref.current?.click();
-                }}
-              >
-                <Pen />
-                <span>수정</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => {
-                  setDeleteTargetId(folder.id);
-                  deleteRef.current?.click();
-                }}
-              >
-                <Trash2 />
-                <span>삭제</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        <li key={folder.id}>
+          <Link
+            href={`/folder/${folder.id}`}
+            className="flex items-center justify-between rounded-md border px-4 py-2 cursor-pointer bg-white"
+          >
+            <span className="text-muted-foreground">{folder.name}</span>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="px-2">
+                  <MoreHorizontal />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="left" align="start">
+                <DropdownMenuItem
+                  onClick={() => {
+                    form.reset({ id: folder.id, name: folder.name });
+                    ref.current?.click();
+                  }}
+                >
+                  <Pen />
+                  <span>수정</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setDeleteTargetId(folder.id);
+                    deleteRef.current?.click();
+                  }}
+                >
+                  <Trash2 />
+                  <span>삭제</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </Link>
         </li>
       ))}
 

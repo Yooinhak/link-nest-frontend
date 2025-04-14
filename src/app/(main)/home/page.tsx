@@ -1,3 +1,4 @@
+import BottomNavigationBar from '@components/BottomNavigationBar';
 import { CreateFolderButton } from '@components/Button';
 import FolderList from '@components/FolderList';
 
@@ -6,6 +7,7 @@ export default async function HomePage() {
     <div className="p-4">
       <CreateFolderButton />
       <FolderList />
+      <BottomNavigationBar />
     </div>
   );
 }

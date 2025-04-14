@@ -32,7 +32,9 @@ const Component = () => {
 
   return (
     <>
-      <Button onClick={openDrawer}>폴더 생성</Button>
+      <Button onClick={openDrawer} className="mb-4">
+        폴더 생성
+      </Button>
       <Drawer
         title="폴더 생성"
         description="nest-link를 한곳에 모아서 볼 수 있어요!"

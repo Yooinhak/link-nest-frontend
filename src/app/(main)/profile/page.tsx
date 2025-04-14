@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 
+import BottomNavigationBar from '@components/BottomNavigationBar';
 import { SignOutButton } from '@components/Button';
 import { Skeleton } from '@components/Skeleton';
 import { useQuery } from '@tanstack/react-query';
@@ -36,6 +37,8 @@ export default function ProfilePage() {
       <SignOutButton />
 
       <span>{`version : ${packageJson.version}`}</span>
+
+      <BottomNavigationBar />
     </div>
   );
 }
