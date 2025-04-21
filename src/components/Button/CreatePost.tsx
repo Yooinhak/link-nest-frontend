@@ -10,7 +10,7 @@ import { createClient } from '@utils/supabase/component';
 
 import { Button } from '.';
 
-const Component = () => {
+const Component = ({ folderId }: { folderId: string }) => {
   const form = useForm();
   const supabase = createClient();
   const queryClient = useQueryClient();
@@ -20,7 +20,9 @@ const Component = () => {
   const handleCreate = async () => {
     const data = form.getValues();
 
-    const { error } = await supabase.from('folders').insert({ name: data.name });
+    const { error } = await supabase
+      .from('posts')
+      .insert({ url: data.url, description: data.description, folder_id: Number(folderId) });
 
     if (!error) {
       queryClient.invalidateQueries({ queryKey: [queryKeys.FOLDER_LIST] });
@@ -33,11 +35,10 @@ const Component = () => {
   return (
     <>
       <Button onClick={openDrawer} className="mb-4">
-        폴더 생성
+        게시글 생성
       </Button>
       <Drawer
-        title="폴더 생성"
-        description="nest-link를 한곳에 모아서 볼 수 있어요!"
+        title="게시글 생성"
         buttons={[
           { label: '닫기', onClick: closeDrawer, variant: 'outline' },
           { label: '저장', onClick: handleCreate },
@@ -46,7 +47,8 @@ const Component = () => {
         <FormProvider {...form}>
           <div className="flex justify-center">
             <div className="w-full max-w-[500px] p-4">
-              <OriginInput className="" {...form.register('name', { required: true })} />
+              <OriginInput className="" {...form.register('url', { required: true })} />
+              <OriginInput className="" {...form.register('description')} />
             </div>
           </div>
         </FormProvider>
