@@ -1,3 +1,4 @@
+import { CreatePostButton } from '@components/Button';
 import { FolderDetailHeader } from '@components/Header';
 
 type Props = {
@@ -10,7 +11,7 @@ export default async function FolderDetail({ params }: Props) {
   return (
     <div>
       <FolderDetailHeader folderId={folderId} />
-      contents~
+      <CreatePostButton folderId={folderId} />
     </div>
   );
 }
