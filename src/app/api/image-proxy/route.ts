@@ -1,4 +1,4 @@
-// Next.js 13+ App Router 기준
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
