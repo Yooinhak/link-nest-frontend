@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { useDrawer } from '@components/Drawer';
 import { OriginInput } from '@components/Input';
+import Label from '@components/Label';
 import { useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@utils/react-query/queryKeys';
 import { createClient } from '@utils/supabase/component';
@@ -34,7 +35,7 @@ const Component = ({ folderId }: { folderId: string }) => {
 
   return (
     <>
-      <Button onClick={openDrawer} className="mb-4">
+      <Button onClick={openDrawer} className="">
         게시글 생성
       </Button>
       <Drawer
@@ -46,9 +47,16 @@ const Component = ({ folderId }: { folderId: string }) => {
       >
         <FormProvider {...form}>
           <div className="flex justify-center">
-            <div className="w-full max-w-[500px] p-4">
-              <OriginInput className="" {...form.register('url', { required: true })} />
-              <OriginInput className="" {...form.register('description')} />
+            <div className="w-full max-w-[500px] p-4 flex flex-col gap-2">
+              <Label htmlFor="post_url">url</Label>
+              <OriginInput
+                id={'post_url'}
+                placeholder="https://"
+                className="mb-1"
+                {...form.register('url', { required: true })}
+              />
+              <Label htmlFor="post_description">설명</Label>
+              <OriginInput id="post_description" {...form.register('description')} />
             </div>
           </div>
         </FormProvider>
