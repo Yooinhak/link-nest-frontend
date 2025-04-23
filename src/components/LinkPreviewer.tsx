@@ -3,30 +3,14 @@
 import Image from 'next/image';
 
 import { useQuery } from '@tanstack/react-query';
+import { parseMetadata } from '@utils/parseMetadata';
 import { queryKeys } from '@utils/react-query/queryKeys';
 
 import { Skeleton } from './Skeleton';
 
-interface Metadata {
-  title: string | null;
-  description: string | null;
-  image: string | null;
-}
-
 interface LinkPreviewCardProps {
   url: string;
   userDescription: string | null;
-}
-
-async function fetchMetadata(url: string): Promise<Metadata | null> {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/parse-meta?url=${encodeURIComponent(url)}`);
-    if (!res.ok) return null;
-    return await res.json();
-  } catch (err) {
-    console.error('Error fetching metadata:', err);
-    return null;
-  }
 }
 
 export const LinkPreviewCardSkeleton = () => {
@@ -45,7 +29,7 @@ export const LinkPreviewCardSkeleton = () => {
 export default function LinkPreviewCard({ url, userDescription }: LinkPreviewCardProps) {
   const { data: metadata, isLoading } = useQuery({
     queryKey: [queryKeys.METADATA, url],
-    queryFn: () => fetchMetadata(url),
+    queryFn: () => parseMetadata(url),
     enabled: !!url,
   });
 
