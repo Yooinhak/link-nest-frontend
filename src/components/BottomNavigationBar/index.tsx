@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const ICON_PATH = Object.freeze({
   HOME: 'm19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z',
@@ -12,37 +15,36 @@ const NAV_LINKS = Object.freeze({
 });
 
 const BottomNavigationBar = () => {
+  const pathname = usePathname();
+
   return (
-    <nav className="fixed z-50 w-full h-16 max-w-sm -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
-      <ul className="grid h-full grid-cols-2">
-        {Object.keys(ICON_PATH).map((key, index) => {
-          const isFirst = index === 0;
-          const isLast = index === Object.keys(ICON_PATH).length - 1;
-          return (
-            <li
-              key={`${key}_nav`}
-              className={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group cursor-pointer ${
-                isFirst ? 'rounded-s-full' : isLast ? 'rounded-e-full' : ''
-              }`}
-            >
-              <Link
-                href={NAV_LINKS[key as keyof typeof NAV_LINKS]}
-                className="w-full h-full flex items-center justify-center"
-              >
-                <svg
-                  className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d={ICON_PATH[key as keyof typeof ICON_PATH]} />
-                </svg>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+    <nav className="fixed bottom-4 left-1/2 z-50 w-full max-w-sm -translate-x-1/2 px-4">
+      <div className="backdrop-blur-md bg-white/70 dark:bg-gray-800/70 shadow-xl border border-gray-200 dark:border-gray-700 rounded-full">
+        <ul className="grid grid-cols-2 h-16">
+          {Object.keys(ICON_PATH).map(key => {
+            const path = NAV_LINKS[key as keyof typeof NAV_LINKS];
+            const isActive = pathname === path;
+
+            return (
+              <li key={key} className="flex items-center justify-center">
+                <Link href={path} className="flex flex-col items-center justify-center w-full h-full group">
+                  <svg
+                    className={`w-6 h-6 mb-1 transition-colors ${
+                      isActive
+                        ? 'text-blue-600 dark:text-blue-400'
+                        : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-300'
+                    }`}
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d={ICON_PATH[key as keyof typeof ICON_PATH]} />
+                  </svg>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </nav>
   );
 };

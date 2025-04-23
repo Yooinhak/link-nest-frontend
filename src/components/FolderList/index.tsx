@@ -82,7 +82,8 @@ const FolderList = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent side="left" align="start">
                 <DropdownMenuItem
-                  onClick={() => {
+                  onClick={e => {
+                    e.preventDefault();
                     form.reset({ id: folder.id, name: folder.name });
                     ref.current?.click();
                   }}
@@ -91,7 +92,9 @@ const FolderList = () => {
                   <span>수정</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {
+                  className="text-red-500"
+                  onClick={e => {
+                    e.preventDefault();
                     setDeleteTargetId(folder.id);
                     deleteRef.current?.click();
                   }}

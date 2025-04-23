@@ -6,7 +6,9 @@ export default async function HomePage() {
   return (
     <div className="p-4">
       <CreateFolderButton />
-      <FolderList />
+      <div className="pb-12">
+        <FolderList />
+      </div>
       <BottomNavigationBar />
     </div>
   );

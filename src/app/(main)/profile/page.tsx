@@ -19,24 +19,28 @@ export default function ProfilePage() {
   });
 
   return (
-    <div className="p-4 flex flex-col items-center">
-      {isLoading ? (
-        <Skeleton className="w-[128px] h-[128px] rounded-full" />
-      ) : (
-        <Image
-          src={user?.user_metadata?.avatar_url || ''}
-          width={128}
-          height={128}
-          className="rounded-full"
-          alt="user_avatar_image"
-        />
-      )}
+    <div className="min-h-screen flex flex-col items-center pt-10 pb-24 px-4">
+      <div className="bg-white shadow-md rounded-2xl p-6 w-full max-w-sm flex flex-col items-center gap-4">
+        {isLoading ? (
+          <Skeleton className="w-32 h-32 rounded-full" />
+        ) : (
+          <Image
+            src={user?.user_metadata?.avatar_url || ''}
+            width={128}
+            height={128}
+            className="rounded-full object-cover"
+            alt="user_avatar_image"
+          />
+        )}
 
-      <div>{user?.email}</div>
+        <div className="text-center">
+          <p className="text-lg font-semibold text-gray-800">{user?.email}</p>
+        </div>
 
-      <SignOutButton />
+        <SignOutButton />
 
-      <span>{`version : ${packageJson.version}`}</span>
+        <div className="text-sm text-gray-400">{`version: ${packageJson.version}`}</div>
+      </div>
 
       <BottomNavigationBar />
     </div>
