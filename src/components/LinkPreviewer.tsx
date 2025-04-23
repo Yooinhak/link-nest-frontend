@@ -1,12 +1,12 @@
 'use client';
 
-import Image from 'next/image';
-
 import { useQuery } from '@tanstack/react-query';
 import { parseMetadata } from '@utils/parseMetadata';
 import { queryKeys } from '@utils/react-query/queryKeys';
 
 import { Skeleton } from './Skeleton';
+
+/* eslint-disable @next/next/no-img-element */
 
 interface LinkPreviewCardProps {
   url: string;
@@ -48,13 +48,12 @@ export default function LinkPreviewCard({ url, userDescription }: LinkPreviewCar
     >
       <div className="flex gap-4">
         {metadata.image && (
-          <div className="relative min-w-[120px] h-[80px] rounded overflow-hidden">
-            <Image
-              src={`/api/image-proxy?url=${encodeURIComponent(metadata.image)}`}
+          <div className="relative w-[120px] aspect-[3/2] bg-gray-100 rounded overflow-hidden flex-shrink-0">
+            <img
+              src={metadata.image}
               alt={metadata.title || 'Link Preview'}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 120px"
+              className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
         )}
