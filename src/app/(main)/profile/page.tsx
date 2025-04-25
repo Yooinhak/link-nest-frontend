@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 import BottomNavigationBar from '@components/BottomNavigationBar';
-import { SignOutButton } from '@components/Button';
+import { InstallPWAButton, SignOutButton } from '@components/Button';
 import { Skeleton } from '@components/Skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@utils/supabase/component';
@@ -38,6 +38,7 @@ export default function ProfilePage() {
         </div>
 
         <SignOutButton />
+        <InstallPWAButton />
 
         <div className="text-sm text-gray-400">{`version: ${packageJson.version}`}</div>
       </div>
