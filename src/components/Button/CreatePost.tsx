@@ -26,7 +26,7 @@ const Component = ({ folderId }: { folderId: string }) => {
       .insert({ url: data.url, description: data.description, folder_id: Number(folderId) });
 
     if (!error) {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.FOLDER_LIST] });
+      queryClient.invalidateQueries({ queryKey: [queryKeys.POST_LIST, folderId] });
       closeDrawer();
     } else {
       console.error(error);
@@ -35,7 +35,13 @@ const Component = ({ folderId }: { folderId: string }) => {
 
   return (
     <>
-      <Button onClick={openDrawer} className="">
+      <Button
+        onClick={() => {
+          form.reset();
+          openDrawer();
+        }}
+        className=""
+      >
         게시글 생성
       </Button>
       <Drawer
