@@ -1,38 +1,32 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import LinkPreviewer from '@components/LinkPreviewer';
 
-import LinkPreviewer, { LinkPreviewCardSkeleton } from '@components/LinkPreviewer';
-import { useQuery } from '@tanstack/react-query';
-import { queryKeys } from '@utils/react-query/queryKeys';
-import { createClient } from '@utils/supabase/component';
+interface PostListProps {
+  posts:
+    | {
+        created_at: string | null;
+        description: string | null;
+        folder_id: number | null;
+        id: number;
+        url: string;
+        user_id: string | null;
+      }[]
+    | null;
+}
 
-const PostList = () => {
-  const supabase = createClient();
-  const { folderId } = useParams();
-
-  const { data: postList, isLoading } = useQuery({
-    queryKey: [queryKeys.POST_LIST, folderId],
-    queryFn: async () => await supabase.from('posts').select().eq('folder_id', Number(folderId)),
-    select: data => data.data,
-  });
+const PostList = ({ posts }: PostListProps) => {
+  if (!posts?.length) {
+    return <div className="p-4 text-gray-500">포스트가 없습니다.</div>;
+  }
 
   return (
     <div className="p-4 flex flex-col gap-2">
-      {isLoading ? (
-        <>
-          <LinkPreviewCardSkeleton />
-          <LinkPreviewCardSkeleton />
-          <LinkPreviewCardSkeleton />
-          <LinkPreviewCardSkeleton />
-        </>
-      ) : (
-        postList?.map(post => (
-          <div key={post.id}>
-            <LinkPreviewer url={post.url} userDescription={post.description} />
-          </div>
-        ))
-      )}
+      {posts.map(post => (
+        <div key={post.id}>
+          <LinkPreviewer url={post.url} userDescription={post.description} />
+        </div>
+      ))}
     </div>
   );
 };

@@ -1,23 +1,16 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { CreatePostButton } from '@components/Button';
-import { useQuery } from '@tanstack/react-query';
-import { queryKeys } from '@utils/react-query/queryKeys';
-import { createClient } from '@utils/supabase/component';
 import { ArrowLeft } from 'lucide-react';
 
-const Component = () => {
-  const router = useRouter();
-  const supabase = createClient();
-  const { folderId } = useParams() as { folderId: string };
+interface FolderDetailHeaderProps {
+  folder: { id?: number; name?: string };
+}
 
-  const { data } = useQuery({
-    queryKey: [queryKeys.FOLDER_DETAIL],
-    queryFn: async () => supabase.from('folders').select().eq('id', Number(folderId)).single(),
-    select: res => res.data,
-  });
+const FolderDetailHeader = ({ folder }: FolderDetailHeaderProps) => {
+  const router = useRouter();
 
   return (
     <div className="border-b border-gray-200 bg-white px-4 py-3 shadow-sm sticky top-0 z-10">
@@ -30,12 +23,12 @@ const Component = () => {
           >
             <ArrowLeft size={20} />
           </button>
-          <span className="text-lg font-semibold text-gray-800">{data?.name || '폴더 이름'}</span>
+          <span className="text-lg font-semibold text-gray-800">{folder?.name || '폴더 이름'}</span>
         </div>
-        <CreatePostButton folderId={folderId} />
+        <CreatePostButton folderId={String(folder.id)} />
       </div>
     </div>
   );
 };
 
-export default Component;
+export default FolderDetailHeader;
