@@ -72,6 +72,7 @@ const FolderList = () => {
           <Link
             href={`/folder/${folder.id}`}
             className="flex items-center justify-between rounded-md border px-4 py-2 cursor-pointer bg-white"
+            prefetch={false}
           >
             <span className="text-muted-foreground">{folder.name}</span>
             <DropdownMenu>
