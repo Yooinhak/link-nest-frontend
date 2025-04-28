@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { CreatePostButton } from '@components/Button';
 import { useQuery } from '@tanstack/react-query';
@@ -8,13 +8,10 @@ import { queryKeys } from '@utils/react-query/queryKeys';
 import { createClient } from '@utils/supabase/component';
 import { ArrowLeft } from 'lucide-react';
 
-type Props = {
-  folderId: string;
-};
-
-const Component = ({ folderId }: Props) => {
+const Component = () => {
   const router = useRouter();
   const supabase = createClient();
+  const { folderId } = useParams() as { folderId: string };
 
   const { data } = useQuery({
     queryKey: [queryKeys.FOLDER_DETAIL],

@@ -1,12 +1,15 @@
 'use client';
 
+import { useParams } from 'next/navigation';
+
 import LinkPreviewer, { LinkPreviewCardSkeleton } from '@components/LinkPreviewer';
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@utils/react-query/queryKeys';
 import { createClient } from '@utils/supabase/component';
 
-const PostList = ({ folderId }: { folderId: string }) => {
+const PostList = () => {
   const supabase = createClient();
+  const { folderId } = useParams();
 
   const { data: postList, isLoading } = useQuery({
     queryKey: [queryKeys.POST_LIST, folderId],
