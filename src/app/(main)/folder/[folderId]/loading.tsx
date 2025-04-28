@@ -1,3 +1,20 @@
 export default function Loading() {
-  return <div>loading.........</div>;
+  return (
+    <div>
+      <div className="border-b border-gray-200 bg-white px-4 py-3 shadow-sm sticky top-0 z-10">
+        {/* Header skeleton */}
+        <div className="animate-pulse flex items-center gap-3">
+          <div className="w-8 h-8 bg-gray-200 rounded-full" />
+          <div className="h-4 bg-gray-200 rounded w-32" />
+        </div>
+      </div>
+
+      {/* Post List skeleton */}
+      <div className="p-4 flex flex-col gap-2">
+        {[1, 2, 3, 4].map(i => (
+          <div key={i} className="h-24 bg-gray-200 rounded-lg animate-pulse" />
+        ))}
+      </div>
+    </div>
+  );
 }
