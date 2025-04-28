@@ -2,11 +2,11 @@ import { FolderDetailHeader } from '@components/Header';
 import PostList from '@components/PostList';
 
 type Props = {
-  params: Promise<{ folderId: string }>;
+  params: { folderId: string };
 };
 
-export default async function FolderDetail({ params }: Props) {
-  const { folderId } = await params;
+export default function FolderDetail({ params }: Props) {
+  const { folderId } = params;
 
   return (
     <div>
