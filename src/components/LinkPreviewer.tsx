@@ -13,7 +13,7 @@ interface LinkPreviewCardProps {
   userDescription: string | null;
 }
 
-export const LinkPreviewCardSkeleton = ({ userDescription }: { userDescription?: string | null }) => {
+export const LinkPreviewCardSkeleton = () => {
   return (
     <div className="flex gap-4 p-4 rounded-xl shadow-md border border-gray-200 bg-white max-w-lg">
       <Skeleton className="min-w-[120px] h-[80px] rounded" />
@@ -22,23 +22,16 @@ export const LinkPreviewCardSkeleton = ({ userDescription }: { userDescription?:
         <Skeleton className="h-4 w-full rounded" />
         <Skeleton className="h-4 w-2/3 rounded" />
       </div>
-      {userDescription && (
-        <p className="text-sm text-gray-600 italic border-t pt-2 mt-2 line-clamp-3">“{userDescription}”</p>
-      )}
     </div>
   );
 };
 
 export default function LinkPreviewCard({ url, userDescription }: LinkPreviewCardProps) {
-  const { data: metadata, isLoading } = useQuery({
+  const { data: metadata } = useQuery({
     queryKey: [queryKeys.METADATA, url],
     queryFn: () => parseMetadata(url),
     enabled: !!url,
   });
-
-  if (isLoading) {
-    return <LinkPreviewCardSkeleton userDescription={userDescription} />;
-  }
 
   if (!metadata) return null;
 

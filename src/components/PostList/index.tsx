@@ -1,36 +1,38 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
-import LinkPreviewer from '@components/LinkPreviewer';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import LinkPreviewer, { LinkPreviewCardSkeleton } from '@components/LinkPreviewer';
+import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@utils/react-query/queryKeys';
 import { createClient } from '@utils/supabase/component';
 
 const PostList = () => {
-  const searchParams = useSearchParams();
-  const folderId = searchParams.get('folderId');
   const supabase = createClient();
+  const { folderId } = useParams();
 
-  const { data: postList } = useSuspenseQuery({
+  const { data: postList, isLoading } = useQuery({
     queryKey: [queryKeys.POST_LIST, folderId],
-    queryFn: async () => {
-      const { data } = await supabase.from('posts').select().eq('folder_id', Number(folderId));
-      return data;
-    },
+    queryFn: async () => await supabase.from('posts').select().eq('folder_id', Number(folderId)),
+    select: data => data.data,
   });
-
-  if (!postList || postList.length === 0) {
-    return <div className="p-4 text-gray-500">게시글이 없습니다.</div>;
-  }
 
   return (
     <div className="p-4 flex flex-col gap-2">
-      {postList.map(post => (
-        <div key={post.id}>
-          <LinkPreviewer url={post.url} userDescription={post.description} />
-        </div>
-      ))}
+      {isLoading ? (
+        <>
+          <LinkPreviewCardSkeleton />
+          <LinkPreviewCardSkeleton />
+          <LinkPreviewCardSkeleton />
+          <LinkPreviewCardSkeleton />
+        </>
+      ) : (
+        postList?.map(post => (
+          <div key={post.id}>
+            <LinkPreviewer url={post.url} userDescription={post.description} />
+          </div>
+        ))
+      )}
     </div>
   );
 };
