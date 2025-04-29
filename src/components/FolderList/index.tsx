@@ -72,7 +72,8 @@ const FolderList = () => {
       {folderList.map(folder => (
         <li key={folder.id}>
           <Link
-            href={`/home/folder/${folder.id}`}
+            // href={`/folder/${folder.id}`}
+            href={`/home/folder`}
             className="flex items-center justify-between rounded-md border px-4 py-2 cursor-pointer bg-white hover:bg-gray-50"
             prefetch={false}
           >
