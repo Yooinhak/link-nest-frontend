@@ -1,3 +1,5 @@
+'use client';
+
 // import { FolderDetailHeader } from '@components/Header';
 // import PostList from '@components/PostList';
 
