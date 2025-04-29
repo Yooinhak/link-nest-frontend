@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import InstallPrompt from '@components/InstallPrompt';
 import ReactQueryClientProvider from '@components/ReactQueryClientProvider';
 
 import './globals.css';
@@ -37,7 +38,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
+        <ReactQueryClientProvider>
+          {children}
+          <InstallPrompt />
+        </ReactQueryClientProvider>
       </body>
     </html>
   );
