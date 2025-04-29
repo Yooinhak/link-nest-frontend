@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { CreatePostButton } from '@components/Button';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -10,7 +10,8 @@ import { ArrowLeft } from 'lucide-react';
 
 const FolderDetailHeader = () => {
   const router = useRouter();
-  const { folderId } = useParams() as { folderId: string };
+  const searchParams = useSearchParams();
+  const folderId = searchParams.get('folderId');
   const supabase = createClient();
 
   const { data } = useSuspenseQuery({
@@ -34,7 +35,7 @@ const FolderDetailHeader = () => {
           </button>
           <span className="text-lg font-semibold text-gray-800">{data?.name ?? '폴더 이름'}</span>
         </div>
-        <CreatePostButton folderId={folderId} />
+        {folderId && <CreatePostButton folderId={folderId} />}
       </div>
     </div>
   );

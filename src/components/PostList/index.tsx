@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 import LinkPreviewer from '@components/LinkPreviewer';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -8,7 +8,8 @@ import { queryKeys } from '@utils/react-query/queryKeys';
 import { createClient } from '@utils/supabase/component';
 
 const PostList = () => {
-  const { folderId } = useParams() as { folderId: string };
+  const searchParams = useSearchParams();
+  const folderId = searchParams.get('folderId');
   const supabase = createClient();
 
   const { data: postList } = useSuspenseQuery({

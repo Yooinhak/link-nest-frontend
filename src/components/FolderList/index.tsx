@@ -25,13 +25,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@components/Drawer';
-// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@components/DropdownMenu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@components/DropdownMenu';
 import { OriginInput } from '@components/Input';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@utils/react-query/queryKeys';
 import { createClient } from '@utils/supabase/component';
-
-// import { MoreHorizontal, Pen, Trash2 } from 'lucide-react';
+import { MoreHorizontal, Pen, Trash2 } from 'lucide-react';
 
 const FolderList = () => {
   const supabase = createClient();
@@ -40,7 +39,6 @@ const FolderList = () => {
   const form = useForm();
   const queryClient = useQueryClient();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
 
   const { data: folderList } = useQuery({
@@ -72,13 +70,11 @@ const FolderList = () => {
       {folderList.map(folder => (
         <li key={folder.id}>
           <Link
-            // href={`/folder/${folder.id}`}
-            href={`/home/folder`}
+            href={{ pathname: '/folder', query: { folderId: folder.id } }}
             className="flex items-center justify-between rounded-md border px-4 py-2 cursor-pointer bg-white hover:bg-gray-50"
-            prefetch={false}
           >
             <span className="text-muted-foreground">{folder.name}</span>
-            {/* <DropdownMenu>
+            <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="px-2">
                   <MoreHorizontal />
@@ -107,7 +103,7 @@ const FolderList = () => {
                   <span>삭제</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu> */}
+            </DropdownMenu>
           </Link>
         </li>
       ))}
