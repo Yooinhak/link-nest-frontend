@@ -14,7 +14,7 @@ const Component = () => {
   const { folderId } = useParams() as { folderId: string };
 
   const { data } = useQuery({
-    queryKey: [queryKeys.FOLDER_DETAIL],
+    queryKey: [queryKeys.FOLDER_DETAIL, folderId],
     queryFn: async () => supabase.from('folders').select().eq('id', Number(folderId)).single(),
     select: res => res.data,
   });
