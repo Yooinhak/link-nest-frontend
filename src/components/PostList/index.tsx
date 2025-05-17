@@ -11,7 +11,11 @@ const PostList = () => {
   const supabase = createClient();
   const { folderId } = useParams();
 
-  const { data: postList, isLoading } = useQuery({
+  const {
+    data: postList,
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: [queryKeys.POST_LIST, folderId],
     queryFn: async () => await supabase.from('posts').select().eq('folder_id', Number(folderId)),
     select: data => data.data,
@@ -29,7 +33,7 @@ const PostList = () => {
       ) : (
         postList?.map(post => (
           <div key={post.id}>
-            <LinkPreviewer url={post.url} userDescription={post.description} />
+            <LinkPreviewer id={post.id} url={post.url} userDescription={post.description} reloadList={refetch} />
           </div>
         ))
       )}
