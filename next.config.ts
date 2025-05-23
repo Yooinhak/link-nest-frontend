@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
+import withPWA from 'next-pwa';
+
+const nextPWA = withPWA({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [],
+});
+
 const nextConfig = {
-  /* config options here */
   images: {
     domains: [
       // 소셜 로그인 프로필 이미지
@@ -10,4 +17,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextPWA(nextConfig);
