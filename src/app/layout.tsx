@@ -22,7 +22,6 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Link Nest',
   description: '즐겨찾는 공유 링크를 모두 모아둘 수 있는 아늑한 장소입니다.',
-  manifest: '/manifest.json',
   icons: [
     { rel: 'icon', url: '/logo/ios/192.png', sizes: '192x192' },
     { rel: 'icon', url: '/logo/ios/512.png', sizes: '512x512' },
@@ -36,6 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
       </body>
