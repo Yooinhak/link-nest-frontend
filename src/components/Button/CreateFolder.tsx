@@ -1,8 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useDrawer } from '@components/Drawer';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@components/Drawer';
 import { OriginInput } from '@components/Input';
 import { useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@utils/react-query/queryKeys';
@@ -15,7 +25,7 @@ const Component = () => {
   const supabase = createClient();
   const queryClient = useQueryClient();
 
-  const { openDrawer, closeDrawer, Drawer } = useDrawer();
+  const [open, setOpen] = useState(false);
 
   const handleCreate = async () => {
     const data = form.getValues();
@@ -24,34 +34,45 @@ const Component = () => {
 
     if (!error) {
       queryClient.invalidateQueries({ queryKey: [queryKeys.FOLDER_LIST] });
-      closeDrawer();
+      setOpen(false);
     } else {
       console.error(error);
     }
   };
 
   return (
-    <>
-      <Button onClick={openDrawer} className="mb-4">
-        폴더 생성
-      </Button>
-      <Drawer
-        title="폴더 생성"
-        description="nest-link를 한곳에 모아서 볼 수 있어요!"
-        buttons={[
-          { label: '닫기', onClick: closeDrawer, variant: 'outline' },
-          { label: '저장', onClick: handleCreate },
-        ]}
-      >
-        <FormProvider {...form}>
-          <div className="flex justify-center">
-            <div className="w-full max-w-[500px] p-4">
-              <OriginInput className="" {...form.register('name', { required: true })} />
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>
+        <Button variant="default" onClick={() => form.reset()}>
+          폴더 생성
+        </Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <div className="mx-auto w-full max-w-sm">
+          <DrawerHeader>
+            <DrawerTitle>폴더 생성</DrawerTitle>
+            <DrawerDescription>nest-link를 한곳에 모아서 볼 수 있어요!</DrawerDescription>
+          </DrawerHeader>
+
+          <FormProvider {...form}>
+            <div className="flex justify-center">
+              <div className="w-full max-w-[500px] p-4">
+                <OriginInput className="" {...form.register('name', { required: true })} />
+              </div>
             </div>
-          </div>
-        </FormProvider>
-      </Drawer>
-    </>
+          </FormProvider>
+
+          <DrawerFooter>
+            <div className="flex gap-2 justify-end">
+              <Button onClick={handleCreate}>저장</Button>
+              <DrawerClose asChild>
+                <Button variant="outline">닫기</Button>
+              </DrawerClose>
+            </div>
+          </DrawerFooter>
+        </div>
+      </DrawerContent>
+    </Drawer>
   );
 };
 
