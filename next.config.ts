@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
-import withPWA from 'next-pwa';
+import withPWA from '@ducanh2912/next-pwa';
 
 const nextPWA = withPWA({
   dest: 'public',
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
   disable: process.env.NODE_ENV === 'development',
-  runtimeCaching: [],
+  workboxOptions: {
+    disableDevLogs: true,
+  },
 });
 
 const nextConfig = {

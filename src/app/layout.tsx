@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   icons: [
     { rel: 'icon', url: '/logo/ios/192.png', sizes: '192x192' },
     { rel: 'icon', url: '/logo/ios/512.png', sizes: '512x512' },
+    { rel: 'apple-touch-icon', url: '/logo/ios/192.png', sizes: '192x192' },
   ],
 };
 
@@ -36,7 +37,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials" />
+        <link rel="apple-touch-startup-image" href="/logo/ios/1024.png" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
